@@ -42,7 +42,7 @@ message.author.send(embedB).then((c) => {
         diversão.on('collect', async _ => {
             var a = new Discord.RichEmbed()
             .setTitle('🎲 | Diversão')
-            .setDescription('Lenbrando que a prefix é ( s! ).\n\n1v1\ncry\nship\nmcskin\navatar\nconta')
+            .setDescription('Lenbrando que a prefix é ( s! ).\n\n1v1\ncry\nmcskin\navatar\nconta')
             .setTimestamp()
             .setColor("RANDOM")
             .setFooter(`Pedido por ${message.author.tag}`, message.author.avatarURL)
@@ -69,7 +69,7 @@ message.author.send(embedB).then((c) => {
         Social.on('collect', async _ => {
             var a = new Discord.RichEmbed()
             .setTitle('👔 |  Social')
-            .setDescription('Lenbrando que a prefix é ( s! ).\n\nping\nserverinfo\ncry\n1v1\nconvite\ninvite\nmcskin\nship\navatar\nconta')
+            .setDescription('Lenbrando que a prefix é ( s! ).\n\nping\nserverinfo\ncry\n1v1\nconvite\ninvite\nmcskin\navatar\nconta')
             .setTimestamp()
             .setColor("RANDOM")
             .setFooter(`Pedido por ${message.author.tag}`, message.author.avatarURL)
