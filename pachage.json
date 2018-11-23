@@ -1,0 +1,25 @@
+{
+  "name": "SupremeBOT",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "await": "^0.2.6",
+    "discord.js": "^11.4.2",
+    "jimp": "^0.5.6",
+    "length": "^0.0.1",
+    "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
+    "mongoose": "^5.3.7",
+    "ms": "^2.1.1",
+    "random-puppy": "^1.1.0",
+    "superagent": "^4.0.0-beta.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
