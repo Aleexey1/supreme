@@ -4,17 +4,6 @@ const fs = require("fs");
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 
-fs.readdir("./comandos", (err, files) => {
-    if(err) console.error(err);
-
-    let arquivojs = files.filter(f => f.split(".").pop() == "js");
-    arquivojs.forEach((f,i) => {
-        let props = require(`./comandos/${f}`);
-        console.log(`comando ${f} carregado com sucesso.`)
-        bot.commands.set(props.help.name, props);
-    });
-});
-
 bot.on('ready', () =>{
     let status = [
         {name: 'Estou em desenvolvimento!', type: 'STREAMING', url: 'https://twitch.tv/biscoito'},
@@ -37,6 +26,17 @@ bot.on('ready', () =>{
       
         setStatus();
         setInterval(() => setStatus(), 10000);  //10000 = 10Ms = 10 segundos
+});
+
+fs.readdir("./comandos", (err, files) => {
+    if(err) console.error(err);
+
+    let arquivojs = files.filter(f => f.split(".").pop() == "js");
+    arquivojs.forEach((f,i) => {
+        let props = require(`./comandos/${f}`);
+        console.log(`comando ${f} carregado com sucesso.`)
+        bot.commands.set(props.help.name, props);
+    });
 });
 
 bot.on('message', message => {
