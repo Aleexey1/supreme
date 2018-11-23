@@ -75,4 +75,4 @@ bot.on('message', message => {
     if(arquivocmd) arquivocmd.run(bot,message,args);
 });
 
-bot.login(config.token);
+bot.login(process.env.BOT_TOKEN);
