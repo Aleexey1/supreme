@@ -59,7 +59,7 @@ bot.on("message", async message => {
 
 bot.on('ready', () =>{
     let status = [
-        {name: ' Ajuda?â”‚ d!help', type: 'STREAMING', url: 'https://twitch.tv/biscoito'},
+        {name: ' Ajuda? | d!help', type: 'STREAMING', url: 'https://twitch.tv/biscoito'},
         {name: 'tirando foto com a duds', type: 'LISTENING'},
         {name: '#duds70k', type: 'PLAYING'},
         {name: 'amo a duds', type: 'WATCHING'},
