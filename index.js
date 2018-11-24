@@ -15,7 +15,7 @@ bot.on('guildMemberAdd', member => {
         .setColor('RANDOM')
         .setThumbnail(avatar)
         .setTitle("**-=-=-=-=- Duds - Server ðŸ’–-=-=-=-=-**")
-        .addField('Bem vindo(a)!', `OlÃ¡ ${member}, seja bem vindo(a) ao server`)
+        .addField('Bem vindo(a)!', `Olá ${member}, seja bem vindo(a) ao server`)
         .setTimestamp()
     bot.channels.get('493058471151927307').send({embed})
 
