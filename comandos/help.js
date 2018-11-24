@@ -55,7 +55,7 @@ message.author.send(embedB).then((c) => {
         Administração.on('collect', async _ => {
             var a = new Discord.RichEmbed()
             .setTitle('📌 | Administração')
-            .setDescription('Lenbrando que a prefix é ( s! ).\n\nban\nkick\nchatoff\nchaton\napagar ')
+            .setDescription('Lenbrando que a prefix é ( s! ).\n\nban\nkick\nchatoff\nchaton\napagar\naviso\nsay ')
             .setTimestamp()
             .setColor("RANDOM")
             .setFooter(`Pedido por ${message.author.tag}`, message.author.avatarURL)
