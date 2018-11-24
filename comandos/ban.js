@@ -1,29 +1,31 @@
-const Discord = require ("discord.js");
+const Discord = require("discord.js");
 
-exports.run = (client, message, args) => {
-if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send(`:x: | **${message.author}** sem permissão!`);
-    if(!args[0]) return message.reply(":thinking: !ban\n \nBanir um membro do servidor discord.\n \n:information_desk_person: Como usar:\n!ban <usuário> [texto]\n \n:book: Exemplo\n!ban @Nitroo#4025 [Algum motivo bastante aleatório]\n \n:name_badge: Permissões\n:information_desk_person: Você precisa ter permissão para Banir membros para utilizar este!");
-    let bUser = message.mentions.users.first() || message.guild.users.get(args[0]);
-    if(!bUser) return message.reply(`não foi possível encontrar o usuário ${bUser}.`);
-    let reason = args.join(" ").slice(22)
-    if(!reason) {
-        reason = "A razão não foi informada."
-    }
-    if(!message.guild.member(bUser.id).bannable) return message.reply("você não pode banir este usuário!");
+module.exports.run = async (bot, message, args) => {
+    let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    if(!bUser) return message.channel.send("Não consigo encontrar usuário!");
+    let bReason = args.join(" ").slice(22);
+    if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send("Infelizmente você não tem permissão!");
+    if(bUser.hasPermission("BAN_MEMBERS")) return message.channel.send("Essa pessoa não pode ser chutada!");
 
-    message.channel.send(`Você tem certeza de banir o usuário ${bUser} pelo motivo ${reason}? Se sim, clique no emoji ✅ para bani-lo.`).then(msg => {
-        msg.react('✅')
-        const sure = (reaction, user) => reaction.emoji.name === `✅` && user.id === message.author.id;
-    const r1 = msg.createReactionCollector(sure, {time: 60000 });
+    let banEmbed = new Discord.RichEmbed()
+    .setDescription("BAN")
+    .setColor("#bc0000")
+    .addField("Usuário banido:", `${bUser} ID ${bUser.id}`)
+    .addField("Staff que baniu:", `<@${message.author.id}> ID ${message.author.id}`)
+    .addField("Banido no chat:", message.channel)
+    .addField("Time", message.createdAt)
+    .addField("Motivo:", bReason);
 
-    r1.on('collect', r => {
-        r.remove(message.author.id);
-        message.guild.member(bUser).ban(reason);
-        message.channel.send(`**Usuário punido com sucesso!**\n \nAuthor:\n${message.author}\n \nUsuário:\n${bUser}\n \nMotivo:\n${reason}`);
-    });
-  });
-}
+    let incidentchannel = message.guild.channels.find(`name`, "😞cantinho-da-vergonha");
+    if(!incidentchannel) return message.channel.send("Não encontrei o canal #😞cantinho-da-vergonha.");
+
+    message.guild.member(bUser).ban(bReason);
+    incidentchannel.send(banEmbed);
+
+
+    return;
+  }
 
 exports.help = {
-    "name": "ban"
+    name: "ban"
 }
