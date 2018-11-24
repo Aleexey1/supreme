@@ -1,16 +1,30 @@
-const Discord = require("discord.js")
+const Discord = require("discord.js");
 
 exports.run = (client, message, args) => {
-var razao = args.slice(1).join(" ")
-    var membro = message.mentions.members.first();
-    if(!message.member.hasPermissions("KICK_MEMBERS")) return message.reply("Você sabe que não tem pemissão e ficaq tentando ?")
-    if(!membro) return message.reply(":thinking: !kick\n \nKickar um membro do servidor discord.\n \n:information_desk_person: Como usar:\n!kick <usuário> [texto]\n \n:book: Exemplo\n!kick @Nitroo#4025 [Algum motivo bastante aleatório]\n \n:name_badge: Permissões\n:information_desk_person: Você precisa ter permissão para kickar membros para utilizar este!")
-    if(!membro.kickable) return message.reply("Infelizmente você não pode kickar esse membro, talvez o cargo dele é maior que o meu ou eu não tenho permissão!")
-    if(razao.length < 1) return message.reply("Coloque um motivo!")
-    membro.kick()
-    message.channel.send(`Author:\n${message.author}\n \nUsuário:\n${membro.user}\n \nMotivo:\n${razao}`);
-    }
+let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+if(!kUser) return message.channel.send("Não consigo encontrar usuário!");
+let kReason = args.join(" ").slice(22);
+if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Infelizmente você não tem permissão!");
+if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Essa pessoa não pode ser chutada!");
+
+let kickEmbed = new Discord.RichEmbed()
+.setDescription("KICK")
+.setColor("#e56b00")
+.addField("Usuário chutado:", `${kUser} ID ${kUser.id}`)
+.addField("O staff que chuto:", `<@${message.author.id}> ID ${message.author.id}`)
+.addField("Foi chutado pelo canal:", message.channel)
+.addField("Time:", message.createdAt)
+.addField("Motivo:", kReason);
+
+let kickChannel = message.guild.channels.find(`name`, "😞cantinho-da-vergonha");
+if(!kickChannel) return message.channel.send("Não encontrei o canal #😞cantinho-da-vergonha.");
+
+message.guild.member(kUser).kick(kReason);
+kickChannel.send(kickEmbed);
+
+return;
+}
 
 exports.help = {
-    "name": "kick"
+    name: "kick"
 }
