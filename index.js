@@ -4,6 +4,59 @@ const fs = require("fs");
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 
+bot.on('guildMemberAdd', member => 
+    member.addRole("476927204845027348")
+);
+
+bot.on('guildMemberAdd', member => {
+    if (member.guild.id !== "492860052621754368") return;
+    let avatar = member.user.avatarURL
+    let embed = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail(avatar)
+        .setTitle("**-=-=-=-=- Duds - Server ðŸ’–-=-=-=-=-**")
+        .addField('Bem vindo(a)!', `OlÃ¡ ${member}, seja bem vindo(a) ao server`)
+        .setTimestamp()
+    bot.channels.get('493058471151927307').send({embed})
+
+});
+
+bot.on("guildMemberRemove", async member => {
+    if (member.guild.id !== "492860052621754368") return;
+    let avatar = member.user.avatarURL
+    let embed = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail(avatar)
+        .addField('-=-=-=-=- Duds - Server -=-=-=-=-', `${member} saiu`)
+        .setTimestamp()
+    bot.channels.get('493058471151927307').send({embed})
+
+});
+
+fs.readdir("./comandos", (err, files) => {
+    if(err) console.error(err);
+
+    let arquivojs = files.filter(f => f.split(".").pop() == "js");
+    arquivojs.forEach((f,i) => {
+        let props = require(`./comandos/${f}`);
+        console.log(`comando ${f} carregado com sucesso.`)
+        bot.commands.set(props.help.name, props);
+    });
+});
+
+bot.on("message", async message => {
+    if (!message.member.hasPermission("ADMINISTRATOR")) return; {
+  if (message.content.startsWith('https://discord.gg/')) {
+        message.delete();
+        return message.channel.send(`
+<a:Alerta:501028184641241108> Alerta, o ${message.author} estÃ¡ tentando divulgar outro grupo discord! 
+<a:Alerta:501028184641241108>`);
+        
+    }
+  } 
+
+});
+
 bot.on('ready', () =>{
     let status = [
         {name: ' Ajuda?â”‚ d!help', type: 'STREAMING', url: 'https://twitch.tv/biscoito'},
@@ -25,17 +78,6 @@ bot.on('ready', () =>{
       
         setStatus();
         setInterval(() => setStatus(), 10000);  //10000 = 10Ms = 10 segundos
-});
-
-fs.readdir("./comandos", (err, files) => {
-    if(err) console.error(err);
-
-    let arquivojs = files.filter(f => f.split(".").pop() == "js");
-    arquivojs.forEach((f,i) => {
-        let props = require(`./comandos/${f}`);
-        console.log(`comando ${f} carregado com sucesso.`)
-        bot.commands.set(props.help.name, props);
-    });
 });
 
 bot.on('message', message => {
