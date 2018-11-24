@@ -6,12 +6,11 @@ bot.commands = new Discord.Collection();
 
 bot.on('ready', () =>{
     let status = [
-        {name: 'Estou em desenvolvimento!', type: 'STREAMING', url: 'https://twitch.tv/biscoito'},
-        {name: `😍 Estou sendo desenvolvido pelo Nitroo#4025`, type: 'LISTENING'},
-        {name: '👨‍🔧 s!help | para saber meus comandos!', type: 'PLAYING'},
-        {name: '🙌 siga seu sonho eu acredito em você!', type: 'WATCHING'},
-        {name: `Estou em ${bot.guilds.size} servidores`, type: 'WATCHING'},
-        {name: 'Quer me adicionar no seu grupo discord ? | s!invite', type: 'STREAMING'}
+        {name: ' Ajuda?â”‚ d!help', type: 'STREAMING', url: 'https://twitch.tv/biscoito'},
+        {name: 'tirando foto com a duds', type: 'LISTENING'},
+        {name: '#duds70k', type: 'PLAYING'},
+        {name: 'amo a duds', type: 'WATCHING'},
+        {name: 'DUDS TE AMOOOOOOOOOOO', type: 'WATCHING'},
       ];
       
       //STREAMING = Transmitindo
