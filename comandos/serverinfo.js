@@ -1,31 +1,28 @@
 const Discord = require("discord.js");
-const moment = require("moment");
-moment.locale("pt-BR");
+const moment = require('moment')
+moment.locale('pt-BR');
 
-exports.run = (client, message, args) => {
-    let online = message.guild.members.filter(a => a.presence.status == "online").size;
-    let ocupado = message.guild.members.filter(a => a.presence.status == "dnd").size;
-    let ausente = message.guild.members.filter(a => a.presence.status == "idle").size;
-    let offline = message.guild.members.filter(a => a.presence.status == "offline").size;
-    let bot = message.guild.members.filter(a => a.user.bot).size;
-    let totalmembros = message.guild.memberCount;
-    let canaistexto = message.guild.channels.filter(a => a.type === "text").size;
-    let canaisvoz = message.guild.channels.filter(a => a.type === "voice").size;
-    let cargos = message.guild.roles.map(a => a).join(", ")
-        const embed = new Discord.RichEmbed()
-        .setTitle(`**Informações do servidor**`)
-        .setColor("#FF0000")
-        .addField('Dono', `<@${message.guild.owner.id}>`)
-        .addField('Criado em:', moment(message.guild.createdAt).format('LLLL'))
-        .addField("ID", message.guild.id)
-        .addField(`Membros [${totalmembros}]`, `Online: ${online}\nAusente: ${ausente}\n Ocupado: ${ocupado}\n Offline: ${offline}\n Bots: ${bot}`)
-        .addField(`Canais [${canaistexto+canaisvoz}]`, `Texto: ${canaistexto}\n Voz: ${canaisvoz}`)
-        .addField(`Cargos [${message.guild.roles.size}]`, cargos)
-        .setThumbnail(message.guild.iconURL)
-        .setFooter(`Pedido por ${message.author.tag}`, message.author.avatarURL)
-        message.channel.send(embed)
+exports.run = (bot,message,args) => {
+    let gAvatar = message.guild.iconURL;
+    let embed = new Discord.RichEmbed()
+
+    .setTimestamp()
+    .setTitle(`${message.guild.name}`)
+    .setThumbnail(gAvatar)
+    .setColor("RANDOM")
+    .setDescription(`Algumas informações do servidor`)
+    .addField(`ID do servidor`, message.guild.id, true)
+    .addField(`Fundador do servidor`, message.guild.owner, true)
+    .addField(`Região do servidor`, message.guild.region, true)
+    .addField(`Total de canais`, message.guild.size, true)
+    .addField(`Criado em`, moment(message.guild.createdAt).format('LLLL'))
+    .addField(`Você entrou aqui em`, moment(message.member.joinedAt).format('LLLL'))
+    .addField(`Entrei aqui em`, moment(bot.user.joinedAt).format('LLLL'))
+    .addField(`Total de membros`, message.guild.memberCount);
+
+    message.channel.send(embed);
 }
 
 exports.help = {
-    "name": "serverinfo"
+    name: "serverinfo"
 }
